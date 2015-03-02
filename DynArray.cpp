@@ -1,5 +1,6 @@
 #include "Structures.h"
 #include <stdexcept>
+#include <math.h>
 
 DynArrayPoint::DynArrayPoint(void)
 {
@@ -41,26 +42,26 @@ void DynArrayPoint::Store(Point P)
 	}
 }
 
-Point DynArrayPoint::Get(int num)
+Point DynArrayPoint::Get(unsigned num)
 {
-	if (num >= _Size | num < 0) throw std::invalid_argument("Bad array index");
+	if (num >= _Size) throw std::invalid_argument("Bad array index");
 	return _Points[num];
 }
 
-Point *DynArrayPoint::Value(int num)
+Point *DynArrayPoint::Value(unsigned num)
 {
-	if (num >= _Size | num < 0) throw std::invalid_argument("Bad array index");
+	if (num >= _Size) throw std::invalid_argument("Bad array index");
 	return _Points + num;
 
 }
-void DynArrayPoint::Set(int num, Point P)
+void DynArrayPoint::Set(unsigned num, Point P)
 {
-	if (num >= _Size | num < 0) throw std::invalid_argument("Bad array index");
+	if (num >= _Size ) throw std::invalid_argument("Bad array index");
 	_Points[num] = P;
 }
-void DynArrayPoint::Drop(int num)
+void DynArrayPoint::Drop(unsigned num)
 {
-	if (num >= _Size | num < 0) throw std::invalid_argument("Bad array index");
+	if (num >= _Size ) throw std::invalid_argument("Bad array index");
 
 	Point *NewPoints = new Point[_Size -1];
 
@@ -81,9 +82,16 @@ void DynArrayPoint::Drop(int num)
 	_Points = NewPoints;
 	--_Size;
 }
+Point& DynArrayPoint::operator[] (unsigned num)
+{
+	if (num >= _Size) throw std::invalid_argument("Bad array index");
+	return _Points[num];
+}
 
 
-
+//---------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------SECTIONS------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------
 
 
 DynArraySect::DynArraySect(void)
@@ -126,25 +134,25 @@ void DynArraySect::Store(Sect S)
 	}
 }
 
-Sect DynArraySect::Get(int num)
+Sect DynArraySect::Get(unsigned num)
 {
-	if (num >= _Size | num < 0) throw std::invalid_argument("Bad array index");
+	if (num >= _Size ) throw std::invalid_argument("Bad array index");
 	return _Sections[num];
 }
 
-Sect *DynArraySect::Value(int num)
+Sect *DynArraySect::Value(unsigned num)
 {
-	if (num >= _Size | num < 0) throw std::invalid_argument("Bad array index");
+	if (num >= _Size ) throw std::invalid_argument("Bad array index");
 	return _Sections + num;
 }
-void DynArraySect::Set(int num, Sect S)
+void DynArraySect::Set(unsigned num, Sect S)
 {
-	if (num >= _Size | num < 0) throw std::invalid_argument("Bad array index");
+	if (num >= _Size) throw std::invalid_argument("Bad array index");
 	_Sections[num] = S;
 }
-void DynArraySect::Drop(int num)
+void DynArraySect::Drop(unsigned num)
 {
-	if (num >= _Size | num < 0) throw std::invalid_argument("Bad array index");
+	if (num >= _Size) throw std::invalid_argument("Bad array index");
 
 
 	Sect *NewSections = new Sect[_Size -1];
@@ -166,4 +174,25 @@ void DynArraySect::Drop(int num)
 	//  Копируем обратно
 	_Sections = NewSections;
 	--_Size;
+}
+Sect& DynArraySect::operator[] (unsigned num)
+{
+	if (num >= _Size) throw std::invalid_argument("Bad array index");
+	return _Sections[num];
+}
+//Make ortog sector
+Sect DynArraySect::ort(unsigned num)
+{
+	if (num >= _Size) throw std::invalid_argument("Bad array index");
+	Sect A;
+	A.A.X = _Sections[num].B.Y;
+	A.B.X = _Sections[num].A.Y;
+	A.B.Y = _Sections[num].B.X;
+	A.A.Y = _Sections[num].A.X;
+	return A;
+}
+double DynArraySect::len(unsigned num)
+{
+	if (num >= _Size) throw std::invalid_argument("Bad array index");
+	return sqrt((_Sections[num].B.X - _Sections[num].A.X)*(_Sections[num].B.X - _Sections[num].A.X) + (_Sections[num].B.Y - _Sections[num].A.Y)*(_Sections[num].B.Y - _Sections[num].A.Y));
 }

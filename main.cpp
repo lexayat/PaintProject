@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include "Structures.h"
+#include<time.h>
 
 using namespace std;
 
@@ -32,7 +33,12 @@ int main(int argc, const char * argv[])
 	//    {
 	//        cout << e.what() << endl;
 	//    }
+	//
 
+	//---------------------------------------------------------------------24.02.15
+
+
+	/*
 	Point P;
 	unsigned n = 2;
 	DynArrayPoint Storage;
@@ -100,6 +106,40 @@ int main(int argc, const char * argv[])
 	{
 		cout << e.what() << endl;
 	}
+	*/
+	//
+
+
+
+	//--------   HOME WORK --------------------
+	//-------------------- FOR 02.03.15-------------------------
+		
+
+	// test DynArraySect
+/*
+	srand(time(0));
+	DynArraySect stor;
+	cout << "write array length" << endl;
+	unsigned n;
+	cin >> n;
+	Sect S;
+	cout << "ARRAY:" << endl;
+	for (unsigned i=0; i < n; ++i)
+	{	
+		S.A.X = (rand() % 1000) *0.01; cout << S.A.X << ' ';
+		S.A.Y = (rand() % 1000) *0.01; cout << S.A.Y << "         ";
+		S.B.X = (rand() % 1000) *0.01; cout << S.B.X << ' ';
+		S.B.Y = (rand() % 1000) *0.01; cout << S.B.Y << endl;
+		stor.Store(S);
+	}
+	cout << endl << endl;
+
+	cout << stor.len(4);
+*/
+	
+	
+
+	
 
 	cout << endl;
 	system("pause");
