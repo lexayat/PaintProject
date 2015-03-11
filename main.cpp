@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-#include "Structures.h"
+#include "storanges.h"
 #include<time.h>
 
 using namespace std;
@@ -137,10 +137,7 @@ int main(int argc, const char * argv[])
 	cout << stor.len(4);
 */
 	
-	
-
-	
-
+		
 	cout << endl;
 	system("pause");
 	return 0;
